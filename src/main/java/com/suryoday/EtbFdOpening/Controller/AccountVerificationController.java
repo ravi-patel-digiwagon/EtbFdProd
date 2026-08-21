@@ -211,8 +211,9 @@ public class AccountVerificationController {
 //			String urlString = "https://intramashery.suryodaybank.com/ssfb/account/verification/" + accountNumber
 //					+ "?consent=Y&ifsc=" + ifsc + "&api_key=" + apiKey;
 			
-			String urlString = x.BASEURL +"account/verification/" + accountNumber
-					+ "?consent=Y&ifsc=" + ifsc + "&api_key=" + x.api_key;
+//			String urlString = x.BASEURL +"account/verification/" + accountNumber+ "?consent=Y&ifsc=" + ifsc + "&api_key=" + x.api_key;
+
+			String urlString = x.BASEURL +"benenamelookup/" + accountNumber+ "?consent=Y&ifsc=" + ifsc + "&api_key=" + x.api_key;
 
 			logger.debug("Calling external API: {}", urlString);
 

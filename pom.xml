@@ -15,7 +15,7 @@
 	<artifactId>EtbFDOpeningService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>EtbFDOpening</name>
+	<name>suryoday-web-etbfdaccount-backend</name>
 	<description>EtbFdOpening project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -187,6 +187,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<finalName>suryoday-web-etbfdaccount-backend</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
