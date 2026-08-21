@@ -12,11 +12,11 @@
 		<!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.suryoday</groupId>
-	<artifactId>EtbFdProdService</artifactId>
+	<artifactId>FDOpeningService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>EtbFdProd</name>
-	<description>EtbFdProd project for Spring Boot</description>
+	<name>FDOpening</name>
+	<description>FdOpening project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
