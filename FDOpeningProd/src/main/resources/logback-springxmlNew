@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Base log folder for FD WAR -->
+    <property name="FD_LOG_DIR" value="/opt/SURYODAYFD/apache-tomcat-9.0.37/logs/fd" />
+
+    <!-- Console log output (optional for debugging) -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{ISO8601} %-5level [%thread] %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- Appender to write live logs to catalina.out -->
+    <appender name="LatestFile" class="ch.qos.logback.core.FileAppender">
+        <file>${FD_LOG_DIR}/catalina.out</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Appender to create daily log files without dummy file -->
+    <appender name="DailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Removed <file> to avoid collisions -->
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FD_LOG_DIR}/catalina-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger writes to all -->
+    <root level="info">
+        <appender-ref ref="LatestFile" />
+        <appender-ref ref="DailyRollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- Application-specific logging -->
+    <logger name="com.suryoday" level="debug" additivity="false">
+        <appender-ref ref="LatestFile" />
+        <appender-ref ref="DailyRollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+   
+
+</configuration>

@@ -1,0 +1,121 @@
+#Keep this file parellel to uidai properties 
+
+
+#authUrl=https://intramashery.suryodaybank.com/ssfb/ekyc/esb?api_key=twkmgdbequkp827u8zdqe5bm
+authUrl=https://intramashery.suryodaybank.com/ssfb/ekyc/auth/v2?api_key=kb7axwaa8f7hsgndxm684pm8
+otpUrl=https://intramashery.suryodaybank.com/ssfb/ekyc/esb?api_key=kb7axwaa8f7hsgndxm684pm8
+#kycUrl=https://intramashery.suryodaybank.com/ssfb/ekyc/esb?api_key=twkmgdbequkp827u8zdqe5bm
+kycUrl=https://intramashery.suryodaybank.com/ssfb/ekyc/v2?api_key=kb7axwaa8f7hsgndxm684pm8
+esbUrl =https://intramashery.suryodaybank.com/ssfb/ekyc/esb?api_key=twkmgdbequkp827u8zdqe5bm
+
+cibilUrl=https://eportuat.equifax.co.in/creditreportws/CreditReportWSInquiry/v1.0?wsdl
+ekyc_key=B9049FAF3B35762087749A0F3C553226
+authOtpUrl=https://intramashery.suryodaybank.com/ssfb/ekyc/otp/v2?api_key=twkmgdbequkp827u8zdqe5bm
+Kycotpurl=https://intramashery.suryodaybank.com/ssfb/ekyc/otp/v2?api_key=twkmgdbequkp827u8zdqe5bm
+urlVersion=OLD
+#urlVersion=New
+
+#Public key and private key files.
+
+publicKeyFile=/opt/SURYODAYFD/apache-tomcat-9.0.37/temp/ssl/cert/uidai_auth_encrypt_preprod.cer
+#AuthPreProdCert=/opt/tomcat-suryodaysarathi/apache-tomcat-9.0.75/conf/ekyc/uidai_auth_encrypt_preprod.cer
+#publicKeyFile=D:\\android\\AOCPV\\aocpvrest\\prepod\\0823\\1808\\ekyc\\uidai_auth_encrypt_preprod.cer
+#AuthPreProdCert=D:\\android\\AOCPV\\aocpvrest\\prepod\\0823\\1808\\ekyc\\uidai_auth_encrypt_preprod.cer
+privateKeyFile=
+
+
+
+# irisLicenseKey Expire Date - 
+irisLicenseKey=C62B8499E08415EB7E95B1F67659E92EF8C9E11A2F31B1EF3B9009EFDC6B79A5F2A7B2EB1E369424791D30D5AC6A7A2C4AAB3DC2F464940EDA6E211B5F47C774
+
+#AUA/KUA License key - Authentication - This license is valid till 02/05/2024
+#aua_lk=MJvRwwNhdQxgjpXvwZ4goTvlBuQH09VyxKvnZBtfCU0zgzDkSRyV9ZQ
+#aua_lk=MC1warVhC3LeN3aQX5SePmiLC2QhTcfsn1O-TW1oakRcqe7kf_gcHPY
+#for temp disable
+#aua_lk=MOkOKWAA6fyY7dtdp8RwNcNGLugkFbKu6lKDjCW_06k37wQRATgt7PY
+#for faceauth  This license is valid till 26/09/2024
+aua_lk=MCfDD5hp3392_JsjjyBtiBhjW3lKXRYrSQq490sOW54gNjKBiVFsUjM
+
+#ASA/KSA LicenseKey not required - eKYC - This license is valid till  22/11/2023
+#kua_lk=MIkINJO4zsDNQCLRM59L3bLqtysPS-GbWhFOP23vgHyrPLGkH5ntekY
+#for temp disable
+#kua_lk=MC1nvOaG9Vk19z1OZ4vNurhtlONrn4yp5lEy4MDHxjwkaESQ_H9BAhI
+#for faceauth  This license is valid till 26/09/2024
+kua_lk=MFnSWLIwCZ5Gw9uYzYDYmzXHyTm5IptKkDwT6crlInGFtTKI5AQUi0Q
+
+#for temp disable
+#opt_lk=MC1nvOaG9Vk19z1OZ4vNurhtlONrn4yp5lEy4MDHxjwkaESQ_H9BAhI
+#for faceauth  This license is valid till 26/09/2024
+opt_lk=MFnSWLIwCZ5Gw9uYzYDYmzXHyTm5IptKkDwT6crlInGFtTKI5AQUi0Q
+
+
+
+
+ac=0003180000
+sa=0003180000
+AcqId=200071
+IIN=608022
+authVer=2.5
+kycVer=2.5
+wadhVer=2.5
+useSSK=Yes
+rc=Y
+tid=registered
+
+lov=560034
+publicIP=127.0.0.1
+lot=P
+#Constant Properties for Banks
+Mcc=6012
+terminalId=public
+dbcall=false
+signaturePassword=public
+#00-email and sms,01-sms,02-email
+otpchannel=01
+
+#Registred Device Properties
+
+optionsver=1.0
+fCount=3
+fType=2
+iCount=2
+iType=0
+format=0
+pidVer=2.0
+timeout=30000
+posh=UNKNOWN
+pfr=n
+env=P
+
+
+
+
+ki=
+pos_entry_mode=019
+pos_code=05
+cA_Tid=register
+cA_ID=SRY000000008000
+cA_TA=Koramangala 2nd Block BANGALORE KAIN
+proc_code=130000
+
+ver=2.5
+pi=n
+pa=n
+pfa=n
+bio=y
+bt=FIR,FMR
+pin=n
+otp=n
+
+
+ra=F
+pfr=Y
+lr=N
+de=Y
+
+#expiry cert
+ci=20250923
+
+
+AuthPreProdCert=/opt/digital/apache-tomcat-9.0.37/ssl/cert/uidai_auth_prod.cer
+#AuthPreProdCert=D:\\UatProject\\aocpvUat\\src\\main\\resources\\cert\\
