@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.suryoday.EtbFdOpening.Pojo.FdOpening;
+import com.suryoday.EtbFdOpening.Service.FdRecieptService;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,9 @@ public class RazorPayControllerEncy {
 	SendOtpService otpservice;
 	@Autowired
 	FdOpeningService fdOpeningService;
+	@Autowired
+	FdRecieptService fdRecieptService;
+
 	private static Logger logger = LoggerFactory.getLogger(RazorPayControllerEncy.class);
 //
 //	@RequestMapping(value = "/sendPaymentLinkEncy", method = RequestMethod.POST, produces = "application/json")
@@ -338,6 +343,87 @@ public class RazorPayControllerEncy {
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
 		}
 
+	}
+
+	@RequestMapping(value = "/payuDetailsEtbEncy", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> payuDetailsEtb(@RequestBody String bm,
+	                                          @RequestHeader(name = "MobileNo", required = true) String mobileNo,
+	                                          @RequestHeader(name = "Content-Type", required = true) String ContentType,
+	                                          @RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID,
+	                                          @RequestHeader(name = "X-Encode-ID", required = true) String X_encode_ID, HttpServletRequest req)
+			throws Exception {
+		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
+		if (sessionId == true) {
+
+			JSONObject encryptJSONObject = new JSONObject(bm);
+			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
+
+			// logger.debug("start request" + bm.toString());
+
+			String key = X_Session_ID;
+
+			String decryptContainerString = Crypt.decrypt(encryptString, X_encode_ID);
+
+			String data = "";
+			JSONObject jsonObject = new JSONObject(decryptContainerString);
+			logger.debug("payuDetailsEtbEncy Req" + jsonObject);
+			JSONObject payuDetails = razorPayService.payuDetails(jsonObject);
+			logger.debug("payuDetailsEtbEncy Resp" + payuDetails);
+			//FdOpeningNTB fdOpening= fdOpeningService.fetchByApplicationNo(Long.parseLong(jsonObject.getJSONObject("Data").getString("ApplicationNo")));
+			FdOpening fdopening = fdRecieptService.fetchByMobNoAndSessionId(mobileNo, X_Session_ID);
+			HttpStatus h = HttpStatus.BAD_GATEWAY;
+			if (payuDetails != null) {
+				String Data2 = payuDetails.getString("data");
+				logger.debug("data2");
+				logger.debug(Data2);
+				JSONObject Data1 = new JSONObject(Data2);
+				if (Data1.has("Data")) {
+					h = HttpStatus.OK;
+					String status = Data1.getJSONObject("Data").getJSONObject("TransactionDetails").getString("Status");
+					//RAVI PAY
+					if(status.equals("success"))
+					{
+						String mihPayid = Data1.getJSONObject("Data").getJSONObject("TransactionDetails").getString("MihPayid");
+						if(fdopening.getIsPaymentDone()==null || fdopening.getIsPaymentDone().equals("N"))
+						{
+							fdopening.setPaymentDate(LocalDateTime.now());
+						}
+						fdopening.setIsPaymentDone("Y");//payuDetailsEncy NTB
+						fdopening.setMihPayid(mihPayid);
+					}
+					else
+					{
+						fdopening.setIsPaymentDone("N");//payuDetailsEncy
+					}
+					otpservice.save(fdopening);
+
+				} else if (Data1.has("Error")) {
+					h = HttpStatus.BAD_REQUEST;
+					fdopening.setIsPaymentDone("N");//payuDetailsEncy
+					otpservice.save(fdopening);
+				}
+
+				data = Data1.toString();
+				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
+				org.json.JSONObject data2 = new org.json.JSONObject();
+				data2.put("value", encryptString2);
+				org.json.JSONObject data3 = new org.json.JSONObject();
+				data3.put("Data", data2);
+				logger.debug("response : " + data3.toString());
+				return new ResponseEntity<Object>(data3.toString(), h);
+
+			} else {
+
+				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
+			}
+		} else {
+			org.json.JSONObject data2 = new org.json.JSONObject();
+			data2.put("value", "SessionId is expired or Invalid sessionId");
+			org.json.JSONObject data3 = new org.json.JSONObject();
+			data3.put("Error", data2);
+			logger.debug("SessionId is expired or Invalid sessionId");
+			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 }

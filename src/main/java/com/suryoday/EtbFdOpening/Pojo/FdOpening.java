@@ -51,6 +51,8 @@ public class FdOpening {
 	private String accountNo;
 	private String ifsc;
 	private String payuOrderId;
+	private LocalDateTime paymentDate;
+	private String mihPayid;
 //	public long getId() {
 //		return id;
 //	}
