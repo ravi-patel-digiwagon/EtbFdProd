@@ -289,6 +289,12 @@ public class SendOtpEncyController extends OncePerRequestFilter {
 						applicationno = saveNtbFd.getString("ApplicationNo");
 						applicationStatus = saveNtbFd.getString("ApplicationStatus");
 					}
+
+//					if (type.equalsIgnoreCase("ETB")) {
+//						JSONObject saveNtbFd = otpservice.saveNtbFd(mobileNo, type, "Progress");
+//						applicationno = saveNtbFd.getString("ApplicationNo");
+//						applicationStatus = saveNtbFd.getString("ApplicationStatus");
+//					}
 //								String sessionId=otpservice.getSessionId(mobileNo);
 					String substring = sessionid.substring(0, Math.min(sessionid.length(), 16));
 					String encodeKey = EncrtionAngulurTest.encodeKey(substring);

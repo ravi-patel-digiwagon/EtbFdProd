@@ -42,6 +42,9 @@ public class FdOpeningEncyController extends OncePerRequestFilter {
 	@Autowired
 	FdRecieptService fdservice;
 
+	@Autowired
+	FdRecieptService fdRecieptService;
+
 	@RequestMapping(value = "/createDepositEncy", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Object> createDeposit(@RequestBody String bm,
 			@RequestHeader(name = "Accept", required = true) String accept,
@@ -496,6 +499,64 @@ public class FdOpeningEncyController extends OncePerRequestFilter {
 //		JSONObject jsonObject = new JSONObject(decryptContainerString);
 //
 //	}
+
+
+	@RequestMapping(value = "/fetchByIdEtbEncy", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> fetchByIdEtbEncy(@RequestBody String bm,
+	                                                       @RequestHeader(name = "Accept", required = true) String accept,
+	                                                       @RequestHeader(name = "Content-Type", required = true) String Content_Type,
+	                                                       @RequestHeader(name = "MobileNo", required = true) String mobileNo,
+	                                                       @RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID,
+	                                                       @RequestHeader(name = "X-Content-Type-Options", required = true) String X_Content_Type_Options,
+	                                                       @RequestHeader(name = "X-Frame-Options", required = true) String X_Frame_Options,
+	                                                       @RequestHeader(name = "Content-Security-Policy", required = true) String Content_Security_Policy,
+	                                                       @RequestHeader(name = "X-XSS-Protection", required = true) String X_XSS_Protection,
+	                                                       @RequestHeader(name = "Strict-Transport-Security", required = true) String Strict_Transport_Security,
+	                                                       @RequestHeader(name = "X-Encode-ID", required = true) String X_encode_ID,
+	                                                       @RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
+			throws Exception {
+		logger.debug("fetchByIdEtbEncy start");
+		logger.debug("fetchByIdEtbEncy request" + bm);
+		JSONObject Header = new JSONObject();
+		Header.put("X-Request-ID", X_Request_ID);
+
+		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
+		if (sessionId == true) {
+			JSONObject encryptJSONObject = new JSONObject(bm);
+			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
+
+			// logger.debug("start request" + bm.toString());
+
+			String key = X_Session_ID;
+
+			String decryptContainerString = Crypt.decrypt(encryptString, X_encode_ID);
+
+			String data = "";
+			JSONObject jsonObject = new JSONObject(decryptContainerString);
+			//String applicationNo = jsonObject.getJSONObject("Data").getString("ApplicationNo");
+			//FdOpeningNTB fdOpeningNTB = fdopeningservice.fetchByApplicationNo(Long.parseLong(applicationNo));
+			FdOpening fdopening = fdRecieptService.fetchByMobNoAndSessionId(mobileNo, X_Session_ID);
+			logger.debug("fetchByIdEtbEncy response" + fdopening.toString());
+			JSONObject Data = new JSONObject(fdopening);
+			JSONObject response = new JSONObject();
+			response.put("Data", Data);
+			data = response.toString();
+			String encryptString2 = Crypt.encrypt(data, X_encode_ID);
+			JSONObject data2 = new JSONObject();
+			data2.put("value", encryptString2);
+			JSONObject data3 = new JSONObject();
+			data3.put("Data", data2);
+			logger.debug("response : " + data3.toString());
+			return new ResponseEntity<Object>(data3.toString(), HttpStatus.OK);
+		} else {
+			JSONObject data2 = new JSONObject();
+			data2.put("value", "SessionId is expired or Invalid sessionId");
+			JSONObject data3 = new JSONObject();
+			data3.put("Error", data2);
+			logger.debug("SessionId is expired or Invalid sessionId");
+			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
+		}
+	}
 
 	@RequestMapping(value = "/fetchByApplicationIdEncy", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Object> fetchByApplicationIdEncy(@RequestBody String bm,
