@@ -500,6 +500,44 @@ public class FdOpeningEncyController extends OncePerRequestFilter {
 //
 //	}
 
+	private Object nullSafe(Object value) {
+		return value == null ? JSONObject.NULL : value;
+	}
+
+	private JSONObject buildFdOpeningData(FdOpening fdopening) {
+		JSONObject data = new JSONObject();
+		data.put("id", fdopening.getId());
+		data.put("mobileNo", nullSafe(fdopening.getMobileNo()));
+		data.put("sessionId", nullSafe(fdopening.getSessionId()));
+		data.put("depositAccountNo", nullSafe(fdopening.getDepositAccountNo()));
+		data.put("depositAmount", nullSafe(fdopening.getDepositAmount()));
+		data.put("tenure", nullSafe(fdopening.getTenure()));
+		data.put("maturityAmout", nullSafe(fdopening.getMaturityAmout()));
+		data.put("interestEarned", nullSafe(fdopening.getInterestEarned()));
+		data.put("roi", nullSafe(fdopening.getRoi()));
+		data.put("fromAccount", nullSafe(fdopening.getFromAccount()));
+		data.put("maturityDate", nullSafe(fdopening.getMaturityDate()));
+		data.put("createdDate", nullSafe(fdopening.getCreatedDate()));
+		data.put("updatedDate", nullSafe(fdopening.getUpdatedDate()));
+		data.put("status", nullSafe(fdopening.getStatus()));
+		data.put("FdRequest", nullSafe(fdopening.getFdRequest()));
+		data.put("FdResponse", nullSafe(fdopening.getFdResponse()));
+		data.put("custType", nullSafe(fdopening.getCustType()));
+		data.put("upiId", nullSafe(fdopening.getUpiId()));
+		data.put("isUpiVerify", nullSafe(fdopening.getIsUpiVerify()));
+		data.put("verifyUpiReq", nullSafe(fdopening.getVerifyUpiReq()));
+		data.put("verifyUpiResp", nullSafe(fdopening.getVerifyUpiResp()));
+		data.put("isPaymentDone", nullSafe(fdopening.getIsPaymentDone()));
+		data.put("createOrderResp", nullSafe(fdopening.getCreateOrderResp()));
+		data.put("paymentDetails", nullSafe(fdopening.getPaymentDetails()));
+		data.put("isAccountVerify", nullSafe(fdopening.getIsAccountVerify()));
+		data.put("accountNo", nullSafe(fdopening.getAccountNo()));
+		data.put("ifsc", nullSafe(fdopening.getIfsc()));
+		data.put("payuOrderId", nullSafe(fdopening.getPayuOrderId()));
+		data.put("paymentDate", nullSafe(fdopening.getPaymentDate()));
+		data.put("mihPayid", nullSafe(fdopening.getMihPayid()));
+		return data;
+	}
 
 	@RequestMapping(value = "/fetchByIdEtbEncy", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Object> fetchByIdEtbEncy(@RequestBody String bm,
@@ -537,7 +575,7 @@ public class FdOpeningEncyController extends OncePerRequestFilter {
 			//FdOpeningNTB fdOpeningNTB = fdopeningservice.fetchByApplicationNo(Long.parseLong(applicationNo));
 			FdOpening fdopening = fdRecieptService.fetchByMobNoAndSessionId(mobileNo, X_Session_ID);
 			logger.debug("fetchByIdEtbEncy response" + fdopening.toString());
-			JSONObject Data = new JSONObject(fdopening);
+			JSONObject Data = buildFdOpeningData(fdopening);
 			JSONObject response = new JSONObject();
 			response.put("Data", Data);
 			data = response.toString();

@@ -24,7 +24,7 @@ public interface FdOpeningRepository extends JpaRepository<FdOpening, Long> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "Delete from tbl_fd_opening  where mobile_no=:mobileNo and session_id!=:sessionId and status!='Completed'", nativeQuery = true)
+	@Query(value = "Delete from tbl_fd_opening  where mobile_no=:mobileNo and session_id!=:sessionId and status!='Completed' and is_payment_done!='Y'", nativeQuery = true)
 	void deleteAllSessions(String mobileNo, String sessionId);
 
 	@Query("Select a from FdOpening a where a.mobileNo=:mobileNo and a.sessionId=:x_Session_ID ")
