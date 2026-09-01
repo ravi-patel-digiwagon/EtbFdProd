@@ -75,8 +75,8 @@ public class AccountVerificationController {
 	}
 
 
-	@PostMapping("/saveUserAccountAndIfscdCodeEtb")
-	public ResponseEntity<?> saveAccountETB(@RequestBody String bm,@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID) {
+	@PostMapping("/saveUserDetailsEtb")
+	public ResponseEntity<?> saveUserDetailsEtb(@RequestBody String bm,@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID) {
 		try {
 			logger.debug("Received request to save account info with session ID: {}", X_Session_ID);
 			ObjectMapper mapper = new ObjectMapper();
