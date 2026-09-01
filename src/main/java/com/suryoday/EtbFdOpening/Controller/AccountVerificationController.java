@@ -84,11 +84,13 @@ public class AccountVerificationController {
 
 			String accountNumber = root.path("Data").path("AccountNo").asText();
 			String ifsc = root.path("Data").path("Ifsc").asText().toUpperCase();
+			String cifNo = root.path("Data").path("cifNo").asText();
+			String productCode = root.path("Data").path("productCode").asText();
 
 			String mobileNo = root.path("Data").path("MobileNo").asText();
 
-			logger.debug("Parsed request data - AccountNo: {}, IFSC: {},  MobileNo: {}",
-					accountNumber, ifsc,  mobileNo);
+			logger.debug("Parsed request data - AccountNo: {}, IFSC: {},  MobileNo: {}, ProductCode: {}",
+					accountNumber, ifsc,  mobileNo, productCode);
 
 			boolean sessionIdValid = otpservice.validateSessionId(X_Session_ID, mobileNo);
 			logger.debug("Session ID validation result for mobile {}: {}", mobileNo, sessionIdValid);
@@ -101,10 +103,11 @@ public class AccountVerificationController {
 					errorMap.put("error", "Application not found");
 					return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMap);
 				}
-
+				fdopening.setCifNo(cifNo);
 				fdopening.setIsAccountVerify("Y");
 				fdopening.setIfsc(ifsc);
 				fdopening.setAccountNo(accountNumber);
+				fdopening.setProductCode(productCode);
 				fdservice.save(fdopening);
 
 				logger.debug("Account details saved for mobileNo: {}", mobileNo);

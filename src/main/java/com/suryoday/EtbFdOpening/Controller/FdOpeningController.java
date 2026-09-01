@@ -355,6 +355,7 @@ public class FdOpeningController extends OncePerRequestFilter {
 		data.put("tenure", nullSafe(fdopening.getTenure()));
 		data.put("maturityAmout", nullSafe(fdopening.getMaturityAmout()));
 		data.put("interestEarned", nullSafe(fdopening.getInterestEarned()));
+		data.put("cifNo", nullSafe(fdopening.getCifNo()));
 		data.put("roi", nullSafe(fdopening.getRoi()));
 		data.put("fromAccount", nullSafe(fdopening.getFromAccount()));
 		data.put("maturityDate", nullSafe(fdopening.getMaturityDate()));
@@ -364,10 +365,12 @@ public class FdOpeningController extends OncePerRequestFilter {
 		data.put("FdRequest", nullSafe(fdopening.getFdRequest()));
 		data.put("FdResponse", nullSafe(fdopening.getFdResponse()));
 		data.put("custType", nullSafe(fdopening.getCustType()));
+		data.put("productCode", nullSafe(fdopening.getProductCode()));
 		data.put("upiId", nullSafe(fdopening.getUpiId()));
 		data.put("isUpiVerify", nullSafe(fdopening.getIsUpiVerify()));
 		data.put("verifyUpiReq", nullSafe(fdopening.getVerifyUpiReq()));
 		data.put("verifyUpiResp", nullSafe(fdopening.getVerifyUpiResp()));
+		data.put("nomineeDetails", nullSafe(fdopening.getNomineeDetails()));
 		data.put("isPaymentDone", nullSafe(fdopening.getIsPaymentDone()));
 		data.put("createOrderResp", nullSafe(fdopening.getCreateOrderResp()));
 		data.put("paymentDetails", nullSafe(fdopening.getPaymentDetails()));

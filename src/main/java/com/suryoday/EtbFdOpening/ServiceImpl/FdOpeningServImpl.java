@@ -149,8 +149,8 @@ public class FdOpeningServImpl implements FdOpeningService {
 			fdOpening.setRoi(roi);
 			fdOpening.setFromAccount(fromAccount);
 			fdOpening.setMaturityDate(maturityDate);
-			fdOpening.setStatus("Completed");
 			fdOpening.setUpdatedDate(LocalDateTime.now());
+			fdOpening.setStatus("Completed");
 			fdopeningrepo.save(fdOpening);
 			return "Data Saved Successfully";
 		} else {

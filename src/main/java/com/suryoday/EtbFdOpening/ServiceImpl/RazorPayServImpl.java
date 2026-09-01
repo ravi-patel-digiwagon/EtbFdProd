@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -255,10 +256,10 @@ public class RazorPayServImpl implements RazorPayService {
 		JSONObject parent = new JSONObject();
 		JSONObject req = new JSONObject();
 		req.put("Form", "2");
-		req.put("Key", "bwYbd0");
+		req.put("Key", "1RFVEo");
 		req.put("Command", "verify_payment");
 		req.put("Var1", orderId);
-		String payload = "bwYbd0|verify_payment|" + orderId + "|1rmv7S62JBSTQUHyQESTUg7oBWw4fvMe";
+		String payload = "1RFVEo|verify_payment|" + orderId + "|KyPO6PPmF2oi8bODewzXA4UI3ouprPTs";
 		String checksum = "";
 		try {
 			checksum = CheckSum.generateHash(payload);
@@ -297,8 +298,17 @@ public class RazorPayServImpl implements RazorPayService {
 
 	@Override
 	public JSONObject savePayuDetailsEtb(JSONObject jsonObject,String mobileNo,String X_Session_ID) {
-		long appNo = Long.parseLong(jsonObject.getJSONObject("Data").getString("ApplicationNo"));
+		//long appNo = Long.parseLong(jsonObject.getJSONObject("Data").getString("ApplicationNo"));
 		String orderId = jsonObject.getJSONObject("Data").getString("OrderId");
+		String depositAccountNo = jsonObject.getJSONObject("Data").getString("DepositAccountNo");
+		String depositAmount = jsonObject.getJSONObject("Data").getString("DepositAmount");
+		String tenure = jsonObject.getJSONObject("Data").getString("Tenure");
+		String maturityAmout = jsonObject.getJSONObject("Data").getString("MaturityAmout");
+		String interestEarned = jsonObject.getJSONObject("Data").getString("InterestEarned");
+		String roi = jsonObject.getJSONObject("Data").getString("Roi");
+		String fromAccount = jsonObject.getJSONObject("Data").getString("FromAccount");
+		String maturityDate = jsonObject.getJSONObject("Data").getString("MaturityDate");
+		String nomineeDetails = jsonObject.getJSONObject("Data").getString("nomineeDetails");
 
 		FdOpening fdopening = fdRecieptService.fetchByMobNoAndSessionId(mobileNo, X_Session_ID);
 
@@ -306,6 +316,16 @@ public class RazorPayServImpl implements RazorPayService {
 		JSONObject data = new JSONObject();
 		if (!"Y".equals(fdopening.getIsPaymentDone())) {
 			fdopening.setPayuOrderId(orderId);
+			fdopening.setDepositAccountNo(depositAccountNo);
+			fdopening.setDepositAmount(depositAmount);
+			fdopening.setTenure(tenure);
+			fdopening.setMaturityAmout(maturityAmout);
+			fdopening.setInterestEarned(interestEarned);
+			fdopening.setRoi(roi);
+			fdopening.setFromAccount(fromAccount);
+			fdopening.setMaturityDate(maturityDate);
+			fdopening.setNomineeDetails(nomineeDetails);
+			fdopening.setUpdatedDate(LocalDateTime.now());
 			fdservice.save(fdopening);
 			data.put("Message", "Success");
 			data.put("Description", "Data saved successfully");

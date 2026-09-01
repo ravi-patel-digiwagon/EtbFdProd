@@ -24,6 +24,7 @@ public class FdOpening {
 	private String tenure;
 	private String maturityAmout;
 	private String interestEarned;
+	private String cifNo;
 	private String roi;
 	private String fromAccount;
 	private String maturityDate;
@@ -37,11 +38,15 @@ public class FdOpening {
 	private String custType;
 	private String upiId;
 	private String isUpiVerify;
+	private String productCode;
 	
 	@Lob
 	private String verifyUpiReq;
 	@Lob
 	private String verifyUpiResp;
+
+	@Lob
+	private String nomineeDetails;
 	private String isPaymentDone;
 	@Lob
 	private String createOrderResp;
