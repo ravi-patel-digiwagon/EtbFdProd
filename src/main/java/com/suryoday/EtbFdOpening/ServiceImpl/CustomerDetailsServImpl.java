@@ -42,6 +42,58 @@ public class CustomerDetailsServImpl implements CustomerDetailsService{
 	InteresrRatesRepo interestrepo;
 	@Autowired
 	MerchantConsentDetailsRepo consentDetailsRepo;
+
+	@Override
+	public JSONObject fetchCustomerDetailSurapiByCustomerId(String customerId, JSONObject headerJson) {
+		JSONObject responseJson = new JSONObject();
+		HttpURLConnection connection = null;
+		try {
+			URL url = new URL("https://surapi.suryoday.bank.in/ssfb/ib/customer/detail");
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setRequestProperty("X-Request-ID", headerJson.getString("X-Request-ID"));
+			connection.setRequestProperty("api_key", "edyac5nftxqyqk8um74xkaxx");
+			connection.setDoOutput(true);
+
+			JSONObject reqData = new JSONObject();
+			reqData.put("CustomerId", customerId);
+			reqData.put("AadharReferenceFlag", "N");
+			reqData.put("MobileNumber", "");
+			reqData.put("DateOfBirth", "");
+
+			JSONObject reqBody = new JSONObject();
+			reqBody.put("Data", reqData);
+
+			try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())) {
+				writer.write(reqBody.toString());
+				writer.flush();
+			}
+
+			int statusCode = connection.getResponseCode();
+			BufferedReader reader = (statusCode >= 200 && statusCode < 300)
+					? new BufferedReader(new InputStreamReader(connection.getInputStream()))
+					: new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+
+			String line;
+			StringBuilder body = new StringBuilder();
+			while ((line = reader.readLine()) != null) {
+				body.append(line);
+			}
+			reader.close();
+
+			responseJson.put("statusCode", statusCode);
+			responseJson.put("data", body.toString());
+			return responseJson;
+		} catch (Exception ex) {
+			logger.error("Error in fetchCustomerDetailSurapiByCustomerId", ex);
+			return null;
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+	}
 	
 	public JSONObject getCustomerDetailsEtbOrNtb(String AadhaarNo, String PanNo, JSONObject header) {
 		logger.debug("getCustomerDetailsEtbOrNtb Calling" );

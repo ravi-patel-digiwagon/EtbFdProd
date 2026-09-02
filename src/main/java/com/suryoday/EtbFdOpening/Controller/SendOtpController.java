@@ -111,7 +111,7 @@ public class SendOtpController extends OncePerRequestFilter {
 			// RAVI END 30-11-2025
 			String callId = jsonObject.getJSONObject("Data").getString("X_Call_ID");
 			int callLimit = updateAndGetOtpCount(mobileNo);
-			if (callLimit > 3) {
+			if (callLimit > 30) {
 				long[] stored = otpMap.get(mobileNo);
 				long firstAttemptTime = stored[1];
 				long retryAllowedTime = firstAttemptTime + TIME_WINDOW;

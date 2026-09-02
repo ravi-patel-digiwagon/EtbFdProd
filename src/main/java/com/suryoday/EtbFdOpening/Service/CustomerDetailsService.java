@@ -37,4 +37,6 @@ public interface CustomerDetailsService {
 
 	JSONObject getCustomerDetailsEtbOrNtb (String aadhaarNo, String panNo, JSONObject header);
 
+	JSONObject fetchCustomerDetailSurapiByCustomerId(String customerId, JSONObject headerJson);
+
 }

@@ -114,6 +114,66 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
 		}
 	}
+	@RequestMapping(value = "/getCustomerDetailByIdSurapiEncy", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> getCustomerDetailByIdSurapiEncy(@RequestBody String bm,
+																  @RequestHeader(name = "X-From-ID", required = true) String xFromId,
+																  @RequestHeader(name = "MobileNo", required = true) String mobileNo,
+																  @RequestHeader(name = "X-Content-Type-Options", required = true) String xContentTypeOptions,
+																  @RequestHeader(name = "X-Frame-Options", required = true) String xFrameOptions,
+																  @RequestHeader(name = "Content-Security-Policy", required = true) String contentSecurityPolicy,
+																  @RequestHeader(name = "X-XSS-Protection", required = true) String xXssProtection,
+																  @RequestHeader(name = "Strict-Transport-Security", required = true) String strictTransportSecurity,
+																  @RequestHeader(name = "X-Session-ID", required = true) String xSessionId,
+																  @RequestHeader(name = "X-Encode-ID", required = true) String xEncodeId,
+																  @RequestHeader(name = "X-Request-ID", required = true) String xRequestId,
+																  HttpServletRequest req) throws Exception {
+
+		logger.debug("getCustomerDetailByIdSurapiEncy start");
+		logger.debug("getCustomerDetailByIdSurapiEncy request {}", bm);
+
+		JSONObject headerJson = new JSONObject();
+		headerJson.put("X-From-ID", xFromId);
+		headerJson.put("X-User-ID", "30639");
+		headerJson.put("X-Request-ID", xRequestId);
+
+		boolean validSession = otpservice.validateSessionId(xSessionId, mobileNo);
+		if (!validSession) {
+			JSONObject err = new JSONObject();
+			err.put("value", "SessionId is expired or Invalid sessionId");
+			JSONObject resp = new JSONObject();
+			resp.put("Error", err);
+			return new ResponseEntity<Object>(resp.toString(), HttpStatus.UNAUTHORIZED);
+		}
+
+		JSONObject encryptedReq = new JSONObject(bm);
+		String cipherText = encryptedReq.getJSONObject("Data").getString("value");
+		String plainText = Crypt.decrypt(cipherText, xEncodeId);
+
+		JSONObject decryptedJson = new JSONObject(plainText);
+		String customerId = decryptedJson.getJSONObject("Data").getString("CustomerId");
+
+		JSONObject downstreamResp = custsomerdetailsservice.fetchCustomerDetailSurapiByCustomerId(customerId, headerJson);
+
+		if (downstreamResp == null) {
+			return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
+		}
+
+		JSONObject parsedBody = new JSONObject(downstreamResp.getString("data"));
+		HttpStatus status = HttpStatus.BAD_GATEWAY;
+		if (parsedBody.has("Data")) {
+			status = HttpStatus.OK;
+		} else if (parsedBody.has("Error")) {
+			status = HttpStatus.BAD_REQUEST;
+		}
+
+		String encryptedResponse = Crypt.encrypt(parsedBody.toString(), xEncodeId);
+		JSONObject dataObj = new JSONObject();
+		dataObj.put("value", encryptedResponse);
+		JSONObject finalResp = new JSONObject();
+		finalResp.put("Data", dataObj);
+
+		return new ResponseEntity<Object>(finalResp.toString(), status);
+	}
 
 	@RequestMapping(value = "/getCustomerDetailsEncy", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Object> getCustomerDetails(@RequestBody String bm,

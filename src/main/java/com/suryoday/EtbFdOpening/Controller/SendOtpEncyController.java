@@ -115,7 +115,7 @@ public class SendOtpEncyController extends OncePerRequestFilter {
 			String mobileNo = jsonObject.getJSONObject("Data").getString("MobileNO");
 			String callId = jsonObject.getJSONObject("Data").getString("X_Call_ID");
 			 int callLimit = updateAndGetOtpCount(mobileNo);
-			if (callLimit > 3) {
+			if (callLimit > 30) {
 //				if (Integer.parseInt(callId) > 3) {
 				long[] stored = otpMap.get(mobileNo);
 				long firstAttemptTime = stored[1];
