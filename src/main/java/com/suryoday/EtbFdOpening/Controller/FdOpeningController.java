@@ -45,16 +45,16 @@ public class FdOpeningController extends OncePerRequestFilter {
 	@Autowired
 	FdRecieptService fdRecieptService;
 
-	@RequestMapping(value = "/createDeposit", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> createDeposit(@RequestBody String bm,
+	@RequestMapping(value = "/createDepositOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> createDepositOld(@RequestBody String bm,
 			@RequestHeader(name = "Accept", required = true) String accept,
 			@RequestHeader(name = "Content-Type", required = true) String Content_Type,
 			@RequestHeader(name = "MobileNo", required = true) String mobileNo,
 			@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("createDeposit start");
-		logger.debug("createDeposit request" + bm);
+		logger.debug("createDepositOld start");
+		logger.debug("createDepositOld request" + bm);
 		JSONObject Header = new JSONObject();
 		Header.put("X-Request-ID", X_Request_ID);
 
@@ -137,16 +137,16 @@ public class FdOpeningController extends OncePerRequestFilter {
 		}
 	}
 
-	@RequestMapping(value = "/saveFdData", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> saveFdData(@RequestBody String bm,
+	@RequestMapping(value = "/saveFdDataOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> saveFdDataOld(@RequestBody String bm,
 			@RequestHeader(name = "Accept", required = true) String accept,
 			@RequestHeader(name = "Content-Type", required = true) String Content_Type,
 			@RequestHeader(name = "MobileNo", required = true) String mobileNo,
 			@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("saveFdData start");
-		logger.debug("saveFdData request" + bm);
+		logger.debug("saveFdDataOld start");
+		logger.debug("saveFdDataOld request" + bm);
 		JSONObject Header = new JSONObject();
 		Header.put("X-Request-ID", X_Request_ID);
 
@@ -314,16 +314,16 @@ public class FdOpeningController extends OncePerRequestFilter {
 	}
 
 
-	@RequestMapping(value = "/fetchByIdEtb", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> fetchByIdEtb(@RequestBody String bm,
+	@RequestMapping(value = "/fetchByIdEtbOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> fetchByIdEtbOld(@RequestBody String bm,
 													   @RequestHeader(name = "Accept", required = true) String accept,
 													   @RequestHeader(name = "Content-Type", required = true) String Content_Type,
 													   @RequestHeader(name = "MobileNo", required = true) String mobileNo,
 													   @RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID,
 													   @RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("fetchByIdEtb start");
-		logger.debug("fetchByIdEtb request" + bm);
+		logger.debug("fetchByIdEtbOld start");
+		logger.debug("fetchByIdEtbOld request" + bm);
 		JSONObject Header = new JSONObject();
 		Header.put("X-Request-ID", X_Request_ID);
 
@@ -335,10 +335,10 @@ public class FdOpeningController extends OncePerRequestFilter {
 		try {
 			FdOpening fdopening = fdRecieptService.fetchByMobNoAndSessionId(mobileNo, X_Session_ID);
 			JSONObject data = buildFdOpeningData(fdopening);
-			logger.debug("fetchByIdEtb response" + fdopening.toString());
+			logger.debug("fetchByIdEtbOld response" + fdopening.toString());
 			response.put("Data", data);
 		} catch (java.util.NoSuchElementException e) {
-			logger.debug("fetchByIdEtb no record found for mobileNo: " + mobileNo + ", sessionId: " + X_Session_ID);
+			logger.debug("fetchByIdEtbOld no record found for mobileNo: " + mobileNo + ", sessionId: " + X_Session_ID);
 			response.put("Data", JSONObject.NULL);
 		}
 		return new ResponseEntity<Object>(response.toString(), HttpStatus.OK);

@@ -102,13 +102,13 @@ public class CustomerDetailsController extends OncePerRequestFilter {
 	
 	
 
-	@RequestMapping(value = "/getCustomerDetails", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> getCustomerDetails(@RequestBody String bm,
+	@RequestMapping(value = "/getCustomerDetailsOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> getCustomerDetailsOld(@RequestBody String bm,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("getCustomerDetails start");
-		logger.debug("getCustomerDetails request" + bm);
+		logger.debug("getCustomerDetailsOld start");
+		logger.debug("getCustomerDetailsOld request" + bm);
 		JSONObject Header = new JSONObject();
 //		 Header.put("X-Correlation-ID",X_CORRELATION_ID );
 		Header.put("X-From-ID", X_From_ID);
@@ -184,16 +184,16 @@ public class CustomerDetailsController extends OncePerRequestFilter {
 		}
 	}
 
-	@RequestMapping(value = "/getAccountDetails", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> getAccountDetails(@RequestBody String bm,
+	@RequestMapping(value = "/getAccountDetailsOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> getAccountDetailsOld(@RequestBody String bm,
 //			@RequestHeader(name = "X-Correlation-ID", required = true) String X_CORRELATION_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-To-ID", required = true) String X_To_ID,
 			@RequestHeader(name = "X-Transaction-ID", required = true) String X_Transaction_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("getAccountDetails start");
-		logger.debug("getAccountDetails request" + bm);
+		logger.debug("getAccountDetailsOld start");
+		logger.debug("getAccountDetailsOld request" + bm);
 		JSONObject Header = new JSONObject();
 //		 Header.put("X-Correlation-ID",X_CORRELATION_ID );
 		Header.put("X-From-ID", X_From_ID);
@@ -361,13 +361,13 @@ public class CustomerDetailsController extends OncePerRequestFilter {
 
 	}
 
-	@RequestMapping(value = "/validateCustomerDetails", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> validateCustomerDetails(@RequestBody String bm,
+	@RequestMapping(value = "/validateCustomerDetailsOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> validateCustomerDetailsOld(@RequestBody String bm,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("validateCustomerDetails start");
-		logger.debug("validateCustomerDetails request" + bm);
+		logger.debug("validateCustomerDetailsOld start");
+		logger.debug("validateCustomerDetailsOld request" + bm);
 		JSONObject Header = new JSONObject();
 //		 Header.put("X-Correlation-ID",X_CORRELATION_ID );
 		Header.put("X-From-ID", X_From_ID);
@@ -437,13 +437,13 @@ public class CustomerDetailsController extends OncePerRequestFilter {
 		return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/fetchInterestRates", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> fetchInterestRates(@RequestBody String jsonRequest,
+	@RequestMapping(value = "/fetchInterestRatesOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> fetchInterestRatesOld(@RequestBody String jsonRequest,
 			@RequestHeader(name = "Content-Type", required = true) String Content_Type,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID) {
 
 		JSONObject jsonObject = new JSONObject(jsonRequest);
-		logger.debug("fetchInterestRates start");
+		logger.debug("fetchInterestRatesOld start");
 		logger.debug("request" + jsonRequest);
 
 		logger.debug("db Call start");
@@ -549,8 +549,8 @@ public class CustomerDetailsController extends OncePerRequestFilter {
 		}
 	}
 
-	@RequestMapping(value = "/nameMatch", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> nameMatch(@RequestBody String bm,
+	@RequestMapping(value = "/nameMatchOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> nameMatchOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Correlation-ID", required = true) String headerPersist,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-To-ID", required = true) String X_To_ID,

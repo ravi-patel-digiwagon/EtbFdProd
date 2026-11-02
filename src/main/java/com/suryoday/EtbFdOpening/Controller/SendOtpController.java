@@ -71,16 +71,16 @@ public class SendOtpController extends OncePerRequestFilter {
 		return (int) data[0];
 	}
 
-	@RequestMapping(value = "/sendOtp", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> sendOtpAndEmail(@RequestBody String bm,
+	@RequestMapping(value = "/sendOtpOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> sendOtpAndEmailOld(@RequestBody String bm,
 //			@RequestHeader(name = "X-Correlation-ID", required = true) String X_CORRELATION_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-To-ID", required = true) String X_To_ID,
 			@RequestHeader(name = "X-Transaction-ID", required = true) String X_Transaction_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("sendOtp start");
-		logger.debug("sendOtp request" + bm);
+		logger.debug("sendOtpOld start");
+		logger.debug("sendOtpOld request" + bm);
 		JSONObject Header = new JSONObject();
 //		 Header.put("X-Correlation-ID",X_CORRELATION_ID );
 		Header.put("X-From-ID", X_From_ID);
@@ -190,8 +190,8 @@ public class SendOtpController extends OncePerRequestFilter {
 
 	}
 
-	@RequestMapping(value = "/validateOTP", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> validateOTP(@RequestBody String bm,
+	@RequestMapping(value = "/validateOTPOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> validateOTPOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Correlation-ID", required = true) String X_CORRELATION_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-To-ID", required = true) String X_To_ID,
@@ -199,7 +199,7 @@ public class SendOtpController extends OncePerRequestFilter {
 			@RequestHeader(name = "Type", required = true) String type,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest request)
 			throws Exception {
-		logger.debug("validateOTP start");
+		logger.debug("validateOTPOld start");
 		JSONObject Header = new JSONObject();
 		Header.put("X-Correlation-ID", X_CORRELATION_ID);
 		Header.put("X-From-ID", X_From_ID);
@@ -296,15 +296,15 @@ public class SendOtpController extends OncePerRequestFilter {
 
 	}
 
-	@RequestMapping(value = "/validateOtp", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> validateOtp(@RequestBody String bm,
+	@RequestMapping(value = "/validateOtpOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> validateOtpOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Correlation-ID", required = true) String X_CORRELATION_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-To-ID", required = true) String X_To_ID,
 			@RequestHeader(name = "X-Transaction-ID", required = true) String X_Transaction_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest request)
 			throws Exception {
-		logger.debug("validateOTP start");
+		logger.debug("validateOTPOld start");
 		JSONObject Header = new JSONObject();
 		Header.put("X-Correlation-ID", X_CORRELATION_ID);
 		Header.put("X-From-ID", X_From_ID);

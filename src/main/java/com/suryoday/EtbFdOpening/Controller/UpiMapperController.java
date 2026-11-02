@@ -44,8 +44,8 @@ public class UpiMapperController {
 	@Autowired
 	CraftMerchantDetailsRepo craftMerchantDetailsRepo;
 
-	@RequestMapping(value = "/upiMapper", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> upiMapper(@RequestBody String bm,
+	@RequestMapping(value = "/upiMapperOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> upiMapperOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID,
 			@RequestHeader(name = "X-Transaction-ID", required = true) String X_Transaction_ID,
 			@RequestHeader(name = "Content-Type", required = true) String ContentType, HttpServletRequest req)

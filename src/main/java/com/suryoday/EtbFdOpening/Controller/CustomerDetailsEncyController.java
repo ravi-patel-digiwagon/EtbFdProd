@@ -408,8 +408,8 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 		}
 	}
 
-	@RequestMapping(value = "/calculateDepositEncy", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> calculateDeposit(@RequestBody String bm,
+	@RequestMapping(value = "/calculateDepositEncyOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> calculateDepositOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Correlation-ID", required = true) String X_CORRELATION_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-Encode-ID", required = true) String X_encode_ID,
@@ -424,7 +424,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 			@RequestHeader(name = "X-Transaction-ID", required = true) String X_Transaction_ID,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID, HttpServletRequest req)
 			throws Exception {
-		logger.debug("calculateDeposit start");
+		logger.debug("calculateDepositOld start");
 
 		JSONObject Header = new JSONObject();
 		Header.put("X-Correlation-ID", X_CORRELATION_ID);

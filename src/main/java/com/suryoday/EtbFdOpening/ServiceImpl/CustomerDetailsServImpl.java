@@ -250,7 +250,7 @@ public class CustomerDetailsServImpl implements CustomerDetailsService{
 		data.put("BranchCode","");
 		data.put("ProductGroup","CASA");
 		parent.put("Data",data);
-		System.out.println(parent);
+		logger.debug("getCustomerDetailsReq :: "+parent.toString());
 		return parent;
 	}
 

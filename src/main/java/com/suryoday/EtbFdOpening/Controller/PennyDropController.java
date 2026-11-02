@@ -79,8 +79,8 @@ public class PennyDropController {
 		}
 	}
 
-	@RequestMapping(value = "/searchIfsc", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> searchIfsc(@RequestBody String bm,
+	@RequestMapping(value = "/searchIfscOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> searchIfscOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID,
 			@RequestHeader(name = "X-Transaction-ID", required = true) String X_Transaction_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,

@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.suryoday.EtbFdOpening.Others.Crypt;
 import com.suryoday.EtbFdOpening.Others.GenerateProperty;
 import com.suryoday.EtbFdOpening.Pojo.FdOpeningNTB;
 import com.suryoday.EtbFdOpening.Service.FdOpeningService;
@@ -74,9 +75,94 @@ public class AccountVerificationController {
 		HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
 	}
 
+	@PostMapping(value = "/saveUserDetailsEtbEncy", produces = "application/json")
+	public ResponseEntity<?> saveUserDetailsEtbEncy(@RequestBody String bm,
+			@RequestHeader(name = "MobileNo", required = true) String mobileNo,
+			@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID,
+			@RequestHeader(name = "X-Encode-ID", required = true) String X_encode_ID) {
+		try {
+			logger.debug("Received request to save account info with session ID: {}", X_Session_ID);
 
-	@PostMapping("/saveUserDetailsEtb")
-	public ResponseEntity<?> saveUserDetailsEtb(@RequestBody String bm,@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID) {
+			boolean sessionIdValid = otpservice.validateSessionId(X_Session_ID, mobileNo);
+			logger.debug("Session ID validation result for mobile {}: {}", mobileNo, sessionIdValid);
+
+			if (sessionIdValid) {
+				JSONObject encryptJSONObject = new JSONObject(bm);
+				String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
+				String decryptContainerString = Crypt.decrypt(encryptString, X_encode_ID);
+
+				ObjectMapper mapper = new ObjectMapper();
+				JsonNode root = mapper.readTree(decryptContainerString);
+
+				String accountNumber = root.path("Data").path("AccountNo").asText();
+				String ifsc = root.path("Data").path("Ifsc").asText().toUpperCase();
+				String cifNo = root.path("Data").path("cifNo").asText();
+				String productCode = root.path("Data").path("productCode").asText();
+
+				logger.debug("Parsed request data - AccountNo: {}, IFSC: {},  MobileNo: {}, ProductCode: {}",
+						accountNumber, ifsc, mobileNo, productCode);
+
+				FdOpening fdopening = fdRecieptService.fetchByMobNoAndSessionId(mobileNo, X_Session_ID);
+				if (fdopening == null) {
+					logger.debug("FdOpening not found for mobileNo: {}", mobileNo);
+					JSONObject error = new JSONObject();
+					error.put("error", "Application not found");
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body(encryptResponse(error, X_encode_ID));
+				}
+				fdopening.setCifNo(cifNo);
+				fdopening.setIsAccountVerify("Y");
+				fdopening.setIfsc(ifsc);
+				fdopening.setAccountNo(accountNumber);
+				fdopening.setProductCode(productCode);
+				fdservice.save(fdopening);
+
+				logger.debug("Account details saved for mobileNo: {}", mobileNo);
+				JSONObject response = new JSONObject();
+				JSONObject subresponse = new JSONObject();
+				subresponse.put("message", "Account information saved successfully");
+				response.put("Data", subresponse);
+				String encryptedResponse = encryptResponse(response, X_encode_ID);
+				logger.debug("response : {}", encryptedResponse);
+				return ResponseEntity.ok(encryptedResponse);
+			} else {
+				JSONObject data2 = new JSONObject();
+				data2.put("value", "SessionId is expired or Invalid sessionId");
+				JSONObject data3 = new JSONObject();
+				data3.put("Error", data2);
+
+				logger.warn("Invalid or expired Session ID for mobileNo: {}", mobileNo);
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(encryptResponse(data3, X_encode_ID));
+			}
+		} catch (Exception e) {
+			logger.error("Exception occurred while saving account information", e);
+			String errorMessage = "Unable to save account details at the moment. Please try again later.";
+			JSONObject errorValue = new JSONObject();
+			errorValue.put("value", errorMessage);
+			JSONObject error = new JSONObject();
+			error.put("Error", errorValue);
+			try {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(encryptResponse(error, X_encode_ID));
+			} catch (Exception encryptException) {
+				logger.error("Failed to encrypt error response", encryptException);
+				JSONObject value = new JSONObject();
+				value.put("value", errorMessage);
+				JSONObject data = new JSONObject();
+				data.put("Data", value);
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(data.toString());
+			}
+		}
+	}
+
+	private String encryptResponse(JSONObject response, String encodeId) throws Exception {
+		JSONObject value = new JSONObject();
+		value.put("value", Crypt.encrypt(response.toString(), encodeId));
+		JSONObject data = new JSONObject();
+		data.put("Data", value);
+		return data.toString();
+	}
+
+	@PostMapping("/saveUserDetailsEtbOld")
+	public ResponseEntity<?> saveUserDetailsEtbOld(@RequestBody String bm,@RequestHeader(name = "X-Session-ID", required = true) String X_Session_ID) {
 		try {
 			logger.debug("Received request to save account info with session ID: {}", X_Session_ID);
 			ObjectMapper mapper = new ObjectMapper();
@@ -189,9 +275,9 @@ public class AccountVerificationController {
 		}
 	}
 
-	@PostMapping("/accountverify")
-	public ResponseEntity<?> verifyAccount(@RequestBody String bm) {
-		logger.debug("accountverify API called");
+	@PostMapping("/accountverifyOld")
+	public ResponseEntity<?> verifyAccountOld(@RequestBody String bm) {
+		logger.debug("accountverifyOld API called");
 
 //		String apiKey = "twkmgdbequkp827u8zdqe5bm";
 		

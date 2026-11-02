@@ -26,8 +26,8 @@ public class CityPincodeController {
 
 	private static Logger logger = LoggerFactory.getLogger(CityPincodeController.class);
 
-	@RequestMapping(value = "/cityPincode", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> cityPinCode(@RequestBody String bm,
+	@RequestMapping(value = "/cityPincodeOld", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> cityPinCodeOld(@RequestBody String bm,
 			@RequestHeader(name = "X-Correlation-ID", required = true) String X_CORRELATION_ID,
 			@RequestHeader(name = "X-From-ID", required = true) String X_From_ID,
 			@RequestHeader(name = "X-To-ID", required = true) String X_To_ID,
