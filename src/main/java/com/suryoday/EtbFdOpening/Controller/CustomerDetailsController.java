@@ -437,13 +437,13 @@ public class CustomerDetailsController extends OncePerRequestFilter {
 		return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/fetchInterestRatesOld", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Object> fetchInterestRatesOld(@RequestBody String jsonRequest,
+	@RequestMapping(value = "/fetchInterestRates", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<Object> fetchInterestRates(@RequestBody String jsonRequest,
 			@RequestHeader(name = "Content-Type", required = true) String Content_Type,
 			@RequestHeader(name = "X-Request-ID", required = true) String X_Request_ID) {
 
 		JSONObject jsonObject = new JSONObject(jsonRequest);
-		logger.debug("fetchInterestRatesOld start");
+		logger.debug("fetchInterestRates start");
 		logger.debug("request" + jsonRequest);
 
 		logger.debug("db Call start");

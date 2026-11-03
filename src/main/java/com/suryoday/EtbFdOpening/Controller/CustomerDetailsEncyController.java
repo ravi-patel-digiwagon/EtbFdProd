@@ -199,7 +199,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -244,9 +244,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -272,7 +272,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -305,9 +305,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				logger.debug("response" + Data1);
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				return new ResponseEntity<Object>(data3.toString(), h);
@@ -317,9 +317,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -354,7 +354,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -387,9 +387,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				logger.debug("response" + Data1);
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				return new ResponseEntity<Object>(data3.toString(), h);
@@ -399,9 +399,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -436,7 +436,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -467,9 +467,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				logger.debug("response" + Data1);
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				return new ResponseEntity<Object>(data3.toString(), h);
@@ -479,9 +479,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -569,7 +569,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 		Header.put("X-User-ID", "30639");
 		Header.put("X-Request-ID", X_Request_ID);
 
-		org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+		JSONObject encryptJSONObject = new JSONObject(bm);
 		String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 		// logger.debug("start request" + bm.toString());
@@ -613,9 +613,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 						resp.put("Data", respData);
 						data = resp.toString();
 						String encryptString2 = Crypt.encrypt(data, encodeId);
-						org.json.JSONObject data2 = new org.json.JSONObject();
+						JSONObject data2 = new JSONObject();
 						data2.put("value", encryptString2);
-						org.json.JSONObject data3 = new org.json.JSONObject();
+						JSONObject data3 = new JSONObject();
 						data3.put("Data", data2);
 						logger.debug("response : " + data3.toString());
 						return new ResponseEntity<Object>(data3.toString(), h);
@@ -625,9 +625,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 						resp.put("Data", respData);
 						data = resp.toString();
 						String encryptString2 = Crypt.encrypt(data, encodeId);
-						org.json.JSONObject data2 = new org.json.JSONObject();
+						JSONObject data2 = new JSONObject();
 						data2.put("value", encryptString2);
-						org.json.JSONObject data3 = new org.json.JSONObject();
+						JSONObject data3 = new JSONObject();
 						data3.put("Data", data2);
 						logger.debug("response : " + data3.toString());
 						return new ResponseEntity<Object>(data3.toString(), h);
@@ -637,9 +637,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 						resp.put("Error", respData);
 						data = resp.toString();
 						String encryptString2 = Crypt.encrypt(data, encodeId);
-						org.json.JSONObject data2 = new org.json.JSONObject();
+						JSONObject data2 = new JSONObject();
 						data2.put("value", encryptString2);
-						org.json.JSONObject data3 = new org.json.JSONObject();
+						JSONObject data3 = new JSONObject();
 						data3.put("Data", data2);
 						logger.debug("response : " + data3.toString());
 						return new ResponseEntity<Object>(data3.toString(), h.BAD_REQUEST);
@@ -648,9 +648,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 					h = HttpStatus.BAD_REQUEST;
 					data = Data1.toString();
 					String encryptString2 = Crypt.encrypt(data, encodeId);
-					org.json.JSONObject data2 = new org.json.JSONObject();
+					JSONObject data2 = new JSONObject();
 					data2.put("value", encryptString2);
-					org.json.JSONObject data3 = new org.json.JSONObject();
+					JSONObject data3 = new JSONObject();
 					data3.put("Data", data2);
 					logger.debug("response : " + data3.toString());
 					return new ResponseEntity<Object>(data3.toString(), h);
@@ -669,9 +669,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 		response.put("Error", error);
 		data = response.toString();
 		String encryptString2 = Crypt.encrypt(data, encodeId);
-		org.json.JSONObject data2 = new org.json.JSONObject();
+		JSONObject data2 = new JSONObject();
 		data2.put("value", encryptString2);
-		org.json.JSONObject data3 = new org.json.JSONObject();
+		JSONObject data3 = new JSONObject();
 		data3.put("Data", data2);
 		logger.debug("response : " + data3.toString());
 		return new ResponseEntity<Object>(data3.toString(), HttpStatus.BAD_REQUEST);
@@ -692,7 +692,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 			throws Exception {
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(jsonRequest);
+			JSONObject encryptJSONObject = new JSONObject(jsonRequest);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			logger.debug("start request :: " + jsonRequest.toString());
@@ -715,16 +715,16 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 			response2.put("Data", array);
 			data = response2.toString();
 			String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", encryptString2);
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Data", data2);
 			logger.debug("response : " + data3.toString());
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.OK);
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -760,7 +760,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -786,9 +786,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				}
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				return new ResponseEntity<Object>(data3.toString(), h);
@@ -797,9 +797,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -832,7 +832,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 		Header.put("X-Request-ID", X_Request_ID);
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -858,9 +858,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				}
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				return new ResponseEntity<Object>(data3.toString(), h);
@@ -869,9 +869,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -905,7 +905,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -937,9 +937,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				logger.debug("Final Resp" + Data1.toString());
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				return new ResponseEntity<Object>(data3.toString(), h);
@@ -948,9 +948,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -1040,7 +1040,7 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 			throws Exception {
 		boolean sessionId = otpservice.validateSessionId(X_Session_ID, mobileNo);
 		if (sessionId == true) {
-			org.json.JSONObject encryptJSONObject = new org.json.JSONObject(bm);
+			JSONObject encryptJSONObject = new JSONObject(bm);
 			String encryptString = encryptJSONObject.getJSONObject("Data").getString("value");
 
 			// logger.debug("start request" + bm.toString());
@@ -1067,9 +1067,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				JSONObject Data1 = new JSONObject(Data2);
 				data = Data1.toString();
 				String encryptString2 = Crypt.encrypt(data, X_encode_ID);
-				org.json.JSONObject data2 = new org.json.JSONObject();
+				JSONObject data2 = new JSONObject();
 				data2.put("value", encryptString2);
-				org.json.JSONObject data3 = new org.json.JSONObject();
+				JSONObject data3 = new JSONObject();
 				data3.put("Data", data2);
 				logger.debug("response : " + data3.toString());
 				HttpStatus h = Data1.has("Data") ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
@@ -1079,9 +1079,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 				return new ResponseEntity<Object>("timeout", HttpStatus.GATEWAY_TIMEOUT);
 			}
 		} else {
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "SessionId is expired or Invalid sessionId");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 			logger.debug("SessionId is expired or Invalid sessionId");
 			return new ResponseEntity<Object>(data3.toString(), HttpStatus.UNAUTHORIZED);
@@ -1094,9 +1094,9 @@ public class CustomerDetailsEncyController extends OncePerRequestFilter {
 		if (request.getMethod().equals("OPTIONS")) {
 			// response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			// throw new NoSuchElementException("You are Not authorized");
-			org.json.JSONObject data2 = new org.json.JSONObject();
+			JSONObject data2 = new JSONObject();
 			data2.put("value", "unatharised Access");
-			org.json.JSONObject data3 = new org.json.JSONObject();
+			JSONObject data3 = new JSONObject();
 			data3.put("Error", data2);
 
 			ErrorResponse errorResponse = new ErrorResponse();
